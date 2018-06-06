@@ -1,0 +1,41 @@
+---
+
+- name: Add public key to apt keystore.
+  apt_key:
+    keyserver: hkp://keyserver.ubuntu.com:80
+    id: 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
+
+- name: Copy list file for MongoDB.
+  copy:
+    src: mongodb-org-3.6.list
+    dest: /etc/apt/sources.list
+    mode: 0755
+
+- name: Install dependency dirmngr.
+  apt:
+    name: dirmngr
+    install_recommends: yes
+    state: present
+
+- name: Install MongoDB set.
+  apt:
+    name: '{{ item }}'
+    state: present
+    install_recommends: yes
+  with_items:
+    - mongodb-org=3.6.5
+    - mongodb-org-server=3.6.5
+    - mongodb-org-shell=3.6.5
+    - mongodb-org-mongos=3.6.5
+    - mongodb-org-tools=3.6.5
+
+- name: Prevent apt-get upgrade MongoDB.
+  dpkg_selections:
+    name: '{{ item }}'
+    selection: hold
+  with_items:
+    - mongodb-org
+    - mongodb-org-server
+    - mongodb-org-shell
+    - mongodb-org-mongos
+    - mongodb-org-tools

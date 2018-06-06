@@ -1,0 +1,19 @@
+# No Ansible temp files.
+*.vagrant
+*.pyvenv*
+*.retry
+playbook.retry
+
+# No packer temp files.
+packer_cache/
+output*/
+
+
+# No certification or key.
+*.crt
+*.key
+*.pem
+
+
+# macOS temp files.
+*.DS_Store

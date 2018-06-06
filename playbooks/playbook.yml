@@ -1,0 +1,15 @@
+---
+
+- hosts: all
+  become: yes
+  become_user: root
+  gather_facts: yes
+
+  pre_tasks:
+    - name: Update apt cache.
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+  roles:
+      - { role: mongodb, tag: ['db'] }
