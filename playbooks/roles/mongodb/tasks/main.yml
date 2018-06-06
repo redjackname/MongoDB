@@ -41,3 +41,15 @@
     - mongodb-org-shell
     - mongodb-org-mongos
     - mongodb-org-tools
+
+- name: Create DB directory.
+  file:
+    path: /data/db
+    state: directory
+    mode: 0775
+
+- name: Start MongoDB.
+  service:
+    name: mongod
+    enabled: yes
+    state: started

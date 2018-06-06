@@ -12,5 +12,4 @@
         cache_valid_time: 3600
 
   roles:
-      # - { role: common, tag: [] }
       - { role: mongodb, tag: ['db'] }
